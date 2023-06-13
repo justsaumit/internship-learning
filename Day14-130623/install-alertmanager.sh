@@ -18,6 +18,10 @@ findarch () {
 
 findarch
 
+sudo useradd --no-create-home alertmanager
+sudo mkdir /etc/alertmanager
+sudo mkdir /var/lib/alertmanager
+
 wget https://github.com/prometheus/alertmanager/releases/download/v"$alertmanagerver"/alertmanager-"$alertmanagerver".linux-"$arch".tar.gz
 tar xzf alertmanager-"$alertmanagerver".linux-"$arch".tar.gz
 
@@ -32,10 +36,11 @@ cd ..
 rm -rf alertmanager-"$alertmanagerver".linux-"$arch".tar.gz
 
 
-sudo useradd --no-create-home alertmanager
 sudo mkdir -p /data/alertmanager
 sudo chown alertmanager:alertmanager /usr/local/bin/amtool /usr/local/bin/alertmanager
+sudo chown alertmanager:alertmanager /etc/alertmanager
 sudo chown -R alertmanager:alertmanager /data/alertmanager /etc/alertmanager/*
+sudo chown -R alertmanager:alertmanager /var/lib/alertmanager
 
 
 sudo systemctl daemon-reload
