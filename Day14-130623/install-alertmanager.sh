@@ -2,14 +2,13 @@
 
 alertmanagerver="0.25.0"
 
-
 findarch () {
     if [ "$(uname -p)" = "aarch64" ] ; then
-        arch=arm64
-	    echo $arch
+        arch="arm64"
+	    echo "$arch"
     elif [ "$(uname -p)" = "x86_64" ] ; then
-        arch=amd64
-	    echo $arch
+        arch="amd64"
+	    echo "$arch"
     else
         echo "Architecture not recognized"
         exit
@@ -37,10 +36,8 @@ rm -rf alertmanager-"$alertmanagerver".linux-"$arch".tar.gz
 
 
 sudo mkdir -p /data/alertmanager
-sudo chown alertmanager:alertmanager /usr/local/bin/amtool /usr/local/bin/alertmanager
-sudo chown alertmanager:alertmanager /etc/alertmanager
-sudo chown -R alertmanager:alertmanager /data/alertmanager /etc/alertmanager/*
-sudo chown -R alertmanager:alertmanager /var/lib/alertmanager
+sudo chown alertmanager:alertmanager /usr/local/bin/amtool /usr/local/bin/alertmanager 
+sudo chown -R alertmanager:alertmanager /etc/alertmanager /data/alertmanager /var/lib/alertmanager
 
 
 sudo systemctl daemon-reload
