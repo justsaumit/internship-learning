@@ -1,0 +1,15 @@
+#!/bin/sh
+curl -XPOST "localhost:9093/api/v1/alerts"   -d   "[{
+    \"status\": \"firing\",
+    \"labels\": {
+      \"alertname\": \"Test Alert\",
+      \"service\": \"test-service\",
+      \"severity\":\"warning\",
+      \"instance\": \"testinstance.example.com\"
+    },
+    \"annotations\": {
+    }
+  }]"
+
+##Expect:
+#{"status":"success"}
