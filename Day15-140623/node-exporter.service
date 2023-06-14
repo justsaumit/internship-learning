@@ -10,7 +10,8 @@ ExecStart=/usr/local/bin/node_exporter \
             --collector.sysctl \
             --collector.systemd \
             --collector.tcpstat \
-            --collector.processes
+            --collector.processes \
+            --collector.filesystem.ignored-mount-points=^/(sys|proc|dev|run)($|/)
 
 [Install]
 WantedBy=multi-user.target
