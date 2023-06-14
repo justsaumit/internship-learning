@@ -1,0 +1,16 @@
+[Unit]
+Description=Prometheus Node Exporter Service
+After=network.target
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter \
+            --collector.sysctl \
+            --collector.systemd \
+            --collector.tcpstat \
+            --collector.processes
+
+[Install]
+WantedBy=multi-user.target
