@@ -23,7 +23,7 @@ tar xzf node_exporter-"$nodexver".linux-"$arch".tar.gz
 sudo cp node_exporter-"$nodexver".linux-"$arch"/node_exporter /usr/local/bin/node_exporter
 rm -rf node_exporter-"$nodexver".linux-"$arch".tar.gz node_exporter-"$nodexver".linux-"$arch"
 
-wget https://raw.githubusercontent.com/devops4solutions/prometheus-monitoring/main/node-exporter.service
+wget https://raw.githubusercontent.com/justsaumit/internship-learning/main/Day15-140623/node-exporter.service
 sudo cp node-exporter.service /etc/systemd/system/node-exporter.service
 
 sudo systemctl daemon-reload
