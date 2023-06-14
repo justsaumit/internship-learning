@@ -1,0 +1,14 @@
+[app]
+address = "0.0.0.0:6000" # Address of the HTTP Server.
+server_timeout = "60s" # Server timeout for HTTP requests.
+enable_request_logs = true # Whether to log incoming HTTP requests or not.
+log = "info" # Use `debug` to enable verbose logging. Can be set to `info` otherwise.
+
+[providers.PromeAlerts]
+type = "google_chat" # Type of provider. Currently supported value is `google_chat`.
+endpoint = "https://chat.googleapis.com/v1/spaces/xyz/messages?key=abc-xyz&token=unique-token"
+max_idle_conns =  50 # Max idle connections in the HTTP Client.
+timeout = "30s" # Timeout for making requests to Provider.
+template = "static/message.tmpl" # Path to specify the message template path.
+thread_ttl = "12h" # Timeout to keep active alerts in memory. Once this TTL expires, a new thread will be created.
+dry_run = false
