@@ -1,0 +1,15 @@
+[Unit]
+Description=calert - Send alert notifications to Google Chat via Prometheus Alertmanager
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=calert
+Group=calert
+Type=simple
+ExecStart=/usr/local/bin/calert \
+    --config /etc/calert/config.toml
+
+[Install]
+WantedBy=multi-user.target
+
