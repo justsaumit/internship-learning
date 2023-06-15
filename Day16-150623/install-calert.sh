@@ -26,8 +26,9 @@ tar -xvf calert_"$calertver"_linux_"$arch".tar.gz -C calert_"$calertver"_linux_"
 
 cd calert_"$calertver"_linux_"$arch"
 sudo cp calert.bin /usr/local/bin/calert
-sudo cp config.sample.toml /etc/calert/config.sample
-#sudo cp -r calert_"$calertver"_linux_"$arch"/static/message.tmpl /usr/local/bin/calert
+wget https://github.com/justsaumit/internship-learning/raw/main/Day16-150623/config.toml
+sudo cp config.toml /etc/calert
+sudo cp -r static/  /etc/calert
 
 wget https://github.com/justsaumit/internship-learning/raw/main/Day16-150623/calert.service
 
