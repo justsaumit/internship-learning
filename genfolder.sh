@@ -19,9 +19,9 @@ while [[ "$current_timestamp" -le "$end_timestamp" ]]; do
     fi
 
     current_date=$(date -d @"$current_timestamp" +%d%m%y)
-    day_str=$(printf "%02d" $day_counter)
-    echo Day"$day_str"-"$current_date"
-    mkdir Day"$day_str"-"$current_date"
+    day_date_str=$(printf "Day%02d-%s" $day_counter $current_date)
+    echo $day_date_str
+    mkdir $day_date_str
 
     current_timestamp=$((current_timestamp + 86400))  # Add 86400 seconds (1 day)
     ((day_counter++))
