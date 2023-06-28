@@ -52,6 +52,9 @@ COPY tle_opm_calc /var/www/html/tle_opm_calc
 RUN ls /var/www/html
 RUN ls /var/www/html/tle_opm_calc
 
+# Check first 13 lines of DB connection
+sed -n '1,13'p tle_opm_calc/view1.php
+
 # info.php for checking if php and php-fpm and other modules are properly configured
 RUN echo "<?php \
 phpinfo(); \
@@ -64,10 +67,10 @@ RUN chown -R nobody.nobody /var/www/html /run /var/lib/nginx /var/log/nginx
 USER nobody
 
 # Expose the port nginx is reachable on
-EXPOSE 80
+EXPOSE 8080
 
 # Let supervisord start nginx & php-fpm
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # Configure a healthcheck to validate that everything is up&running
-HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:80/test.php
+HEALTHCHECK --timeout=10s CMD curl --silent --fail http://127.0.0.1:8080/test.php
