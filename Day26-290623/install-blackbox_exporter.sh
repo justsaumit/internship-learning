@@ -17,6 +17,7 @@ findarch () {
 findarch
 
 sudo useradd --no-create-home blackbox_exporter
+mkdir /etc/blackbox_exporter
 
 wget https://github.com/prometheus/blackbox_exporter/releases/download/v"$bbexver"/blackbox_exporter-"$bbexver".linux-"$arch".tar.gz
 tar xzf blackbox_exporter-"$bbexver".linux-"$arch".tar.gz
