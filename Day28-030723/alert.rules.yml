@@ -99,15 +99,6 @@ groups:
         summary: "Host out of disk space (instance {{ $labels.instance }})"
         description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
     
-    - alert: Host10GB-DiskSpaceLeft
-      expr: '(node_filesystem_avail_bytes{mountpoint="/"} < 10 * 1024 * 1024 * 1024 and ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}'
-      for: 2m
-      labels:
-        severity: critical
-      annotations:
-        summary: "Host out of disk space less than 10GB (instance {{ $labels.instance }})"
-        description: "Disk is almost full (< 10GB left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
     - alert: HostDiskWillFillIn24Hours
       expr: '((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly == 0) * on(instance) group_left (nodename) node_uname_info{nodename=~".+"}'
       for: 2m
@@ -144,3 +135,30 @@ groups:
       annotations:
         summary: "Host requires reboot (instance {{ $labels.instance }})"
         description: "{{ $labels.instance }} requires a reboot.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+    - alert: BlackboxProbeFailed
+      expr: probe_success == 0
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: Blackbox probe failed (instance {{ $labels.instance }})
+        description: "Probe failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+    - alert: BlackboxSSLCertificateWillExpireSoon
+      expr: 3 <= round((last_over_time(probe_ssl_earliest_cert_expiry[10m]) - time()) / 86400, 0.1) < 30
+      for: 0m
+      labels:
+        severity: warning
+      annotations:
+        summary: Blackbox SSL certificate will expire soon (instance {{ $labels.instance }})
+        description: "SSL certificate expires in less than 30 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+    - alert: BlackboxSSLCertificateWillExpireSoon
+      expr: 0 <= round((last_over_time(probe_ssl_earliest_cert_expiry[10m]) - time()) / 86400, 0.1) < 3
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: Blackbox SSL certificate will expire soon (instance {{ $labels.instance }})
+        description: "SSL certificate expires in less than 3 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
