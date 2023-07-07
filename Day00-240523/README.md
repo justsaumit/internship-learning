@@ -24,7 +24,7 @@ sudo docker-compose up -d
 ``` bash
 docker ps
 ```
-[docker compose up -d and docker ps](Screenshot from 2023-05-24 18-56-45.png)
+![docker compose up -d and docker ps](Screenshot_from_2023-05-24_18-56-45.png)
 ### Docker Compose remove volumes and orphan containers
 ```bash
 docker-compose down --volume --remove-orphans
@@ -42,8 +42,8 @@ wget https://raw.githubusercontent.com/getredash/setup/master/setup.sh
 ```bash
 vim  setup.sh 
 ```
-[](Screenshot from 2023-05-24 18-57-10.png)
-[](Screenshot from 2023-05-24 18-57-14.png)
+![Making changes to redash docker compose install script](Screenshot_from_2023-05-24_18-57-10.png)
+![Making changes to redash docker compose install script 2](Screenshot_from_2023-05-24_18-57-14.png)
 ### Making it executable
 ```bash
 chmod +x setup.sh 
@@ -52,11 +52,11 @@ chmod +x setup.sh
 ```bash
 ./setup.sh 
 ```
-[](Screenshot from 2023-05-24 19-26-57.png)
+![Running the script](Screenshot_from_2023-05-24_19-26-57.png)
 
 ### Setting up MySQL as DataSource for Redash
-[](Screenshot from 2023-05-24 19-00-08.png)
+![Testing and Setting up MySQL for Redash](Screenshot_from_2023-05-24_19-00-08.png)
 ### Setting up MySQL and MongoDB as DataSource for Redash
-[](Screenshot from 2023-05-24 19-00-11.png)
-### docker
-[](Screenshot from 2023-05-24 19-27-06.png)
+![Having set up local MySQL and MongoDB for Redash](Screenshot_from_2023-05-24_19-00-11.png)
+### Docker
+![Using docker ps command](Screenshot_from_2023-05-24_19-27-06.png)
