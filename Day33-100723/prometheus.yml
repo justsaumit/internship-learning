@@ -1,0 +1,52 @@
+global:
+  scrape_interval: 15s
+  external_labels:
+    monitor: 'prometheus'
+
+rule_files:
+  - alert.rules.yml
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 'localhost:9093'
+
+scrape_configs:
+  - job_name: 'node'
+    scrape_interval: 30s
+    scrape_timeout: 20s
+    ec2_sd_configs:
+      - region: ap-south-1
+        access_key: <aws-access-key-id>
+        secret_key: <aws-secret-access-key>
+        port: 9100
+        refresh_interval: 1m
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: tagname
+      - action: drop
+        source_labels: [tagname]
+        regex: ".*-ASG$|.*AUTOSCAL.*|.*AutoScal.*|.*Autoscal.*|Auto-.*"
+      - action: drop
+        source_labels: [__meta_ec2_platform]
+        regex: "windows"
+      - source_labels: [__meta_ec2_instance_id]
+        target_label: instance_id
+        replacement: '${__address__}'
+      - source_labels: [__meta_ec2_private_ip]
+        target_label: instance
+
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+        module: [http_2xx]
+    static_configs:
+        - targets:
+            - <insert 100+ sites and API urls here>
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: <privIP-of-EC2-w-prom+bbe>:3001
