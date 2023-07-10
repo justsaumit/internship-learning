@@ -59,7 +59,7 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 9,
+        "w": 8,
         "x": 0,
         "y": 0
       },
@@ -159,7 +159,7 @@
       "gridPos": {
         "h": 3,
         "w": 9,
-        "x": 9,
+        "x": 8,
         "y": 0
       },
       "id": 324,
@@ -185,7 +185,7 @@
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
           "editorMode": "code",
-          "expr": "(count by (tagname) (node_exporter_build_info{job=\"node\", tagname=\"$node\"}))",
+          "expr": "(count by (tagname) (node_exporter_build_info{job=\"node\", instance=\"$node\"}))",
           "format": "table",
           "hide": false,
           "legendFormat": "__auto",
@@ -246,7 +246,7 @@
       "gridPos": {
         "h": 3,
         "w": 6,
-        "x": 18,
+        "x": 17,
         "y": 0
       },
       "id": 323,
@@ -272,7 +272,7 @@
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
           "editorMode": "code",
-          "expr": "(count by (instance) (node_exporter_build_info{job=\"node\", tagname=\"$node\"}))",
+          "expr": "(count by (instance) (node_exporter_build_info{job=\"node\", instance=\"$node\"}))",
           "format": "table",
           "hide": false,
           "legendFormat": "__auto",
@@ -336,7 +336,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 9,
+        "x": 8,
         "y": 3
       },
       "id": 14,
@@ -363,100 +363,17 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "count(count(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}) by (cpu))",
+          "editorMode": "code",
+          "expr": "count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu))",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "",
+          "range": true,
           "refId": "A",
           "step": 240
         }
       ],
       "title": "CPU Cores",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
-      },
-      "description": "Total RootFS",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "decimals": 0,
-          "mappings": [
-            {
-              "options": {
-                "match": "null",
-                "result": {
-                  "text": "N/A"
-                }
-              },
-              "type": "special"
-            }
-          ],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
-              },
-              {
-                "color": "rgba(237, 129, 40, 0.89)",
-                "value": 70
-              },
-              {
-                "color": "rgba(245, 54, 54, 0.9)",
-                "value": 90
-              }
-            ]
-          },
-          "unit": "bytes"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 12,
-        "y": 3
-      },
-      "id": 23,
-      "links": [],
-      "maxDataPoints": 100,
-      "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "9.5.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
-          },
-          "expr": "node_filesystem_size_bytes{tagname=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"}",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "refId": "A",
-          "step": 240
-        }
-      ],
-      "title": "RootFS Total",
       "type": "stat"
     },
     {
@@ -502,7 +419,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 15,
+        "x": 11,
         "y": 3
       },
       "hideTimeOverride": true,
@@ -530,8 +447,10 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "node_time_seconds{tagname=\"$node\",job=\"$job\"} - node_boot_time_seconds{tagname=\"$node\",job=\"$job\"}",
+          "editorMode": "code",
+          "expr": "node_time_seconds{instance=\"$node\",job=\"$job\"} - node_boot_time_seconds{instance=\"$node\",job=\"$job\"}",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A",
           "step": 240
         }
@@ -582,7 +501,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 18,
+        "x": 14,
         "y": 3
       },
       "id": 75,
@@ -609,8 +528,10 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "node_memory_MemTotal_bytes{tagname=\"$node\",job=\"$job\"}",
+          "editorMode": "code",
+          "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"}",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A",
           "step": 240
         }
@@ -661,7 +582,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 21,
+        "x": 17,
         "y": 3
       },
       "id": 18,
@@ -688,13 +609,102 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "node_memory_SwapTotal_bytes{tagname=\"$node\",job=\"$job\"}",
+          "editorMode": "code",
+          "expr": "node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"}",
           "intervalFactor": 1,
+          "range": true,
           "refId": "A",
           "step": 240
         }
       ],
       "title": "SWAP Total",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
+      },
+      "description": "Total RootFS",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 70
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 3,
+        "x": 20,
+        "y": 3
+      },
+      "id": 23,
+      "links": [],
+      "maxDataPoints": 100,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
+          },
+          "editorMode": "code",
+          "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"}",
+          "format": "time_series",
+          "hide": false,
+          "intervalFactor": 1,
+          "range": true,
+          "refId": "A",
+          "step": 240
+        }
+      ],
+      "title": "RootFS Total",
       "type": "stat"
     },
     {
@@ -706,7 +716,7 @@
       "description": "Partition utilization, disk read, disk write, download bandwidth, upload bandwidth, if there are multiple network cards or multiple partitions, it is the value of the network card or partition with the highest utilization rate collected.\n\nCurrEstab: The number of TCP connections whose current status is ESTABLISHED or CLOSE-WAIT.",
       "fontSize": "80%",
       "gridPos": {
-        "h": 7,
+        "h": 8,
         "w": 24,
         "x": 0,
         "y": 6
@@ -715,7 +725,7 @@
       "showHeader": true,
       "sort": {
         "col": 12,
-        "desc": true
+        "desc": false
       },
       "styles": [
         {
@@ -752,7 +762,7 @@
           "link": true,
           "linkTargetBlank": false,
           "linkTooltip": "Browse host details",
-          "linkUrl": "d/xfpJB9FGz/node-exporter?orgId=1&var-job=${job}&var-hostname=All&var-node=${__cell}&var-device=All&var-origin_prometheus=$origin_prometheus",
+          "linkUrl": "d/rYdddlPWk/node-exporter?orgId=1&var-job=${job}&var-node=${__cell}",
           "mappingType": 1,
           "pattern": "instance",
           "thresholds": [],
@@ -1040,6 +1050,7 @@
           "editorMode": "code",
           "expr": "node_uname_info{job=~\"$job\"} - 0",
           "format": "table",
+          "hide": false,
           "instant": true,
           "interval": "",
           "legendFormat": "主机名",
@@ -1232,6 +1243,221 @@
       "type": "table-old"
     },
     {
+      "datasource": {
+        "type": "camptocamp-prometheus-alertmanager-datasource",
+        "uid": "a7826f2e-d3c8-475e-8e8c-c1c1b7cbba95"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "decimals": 2,
+          "displayName": "",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Time"
+              },
+              {
+                "id": "unit",
+                "value": "time: YYYY-MM-DD HH:mm:ss"
+              },
+              {
+                "id": "custom.align"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-blues"
+                }
+              },
+              {
+                "id": "custom.width",
+                "value": 167
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "tagname"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "summary"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 210
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "alertname"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 120
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "palette-classic"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "instance"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 114
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 327,
+      "links": [],
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time"
+          }
+        ]
+      },
+      "pluginVersion": "9.5.3",
+      "targets": [
+        {
+          "active": true,
+          "annotations": true,
+          "datasource": {
+            "type": "camptocamp-prometheus-alertmanager-datasource",
+            "uid": "a7826f2e-d3c8-475e-8e8c-c1c1b7cbba95"
+          },
+          "expr": "",
+          "filters": "alertname=InstanceDown",
+          "hide": false,
+          "labelSelector": "*",
+          "legendFormat": "{{ summary }}",
+          "refId": "A",
+          "silenced": false,
+          "target": "Query",
+          "type": "table"
+        },
+        {
+          "annotations": false,
+          "datasource": {
+            "type": "camptocamp-prometheus-alertmanager-datasource",
+            "uid": "a7826f2e-d3c8-475e-8e8c-c1c1b7cbba95"
+          },
+          "expr": "",
+          "filters": "alertname=InstanceDown",
+          "hide": true,
+          "labelSelector": "*",
+          "legendFormat": "{{ instance }}",
+          "refId": "B",
+          "target": "Query",
+          "type": "table"
+        }
+      ],
+      "title": "Instances that are Down",
+      "transform": "table",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "Time",
+                "summary",
+                "alertname",
+                "instance",
+                "tagname"
+              ]
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
@@ -1241,7 +1467,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 20
       },
       "id": 261,
       "panels": [],
@@ -1285,8 +1511,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1306,7 +1531,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 14
+        "y": 21
       },
       "id": 20,
       "links": [],
@@ -1330,7 +1555,7 @@
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
           "editorMode": "code",
-          "expr": "(sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))) * 100",
+          "expr": "(sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode!=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))) * 100",
           "hide": false,
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1370,8 +1595,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1391,7 +1615,7 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 14
+        "y": 21
       },
       "id": 155,
       "links": [],
@@ -1414,7 +1638,7 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "avg(node_load5{tagname=\"$node\",job=\"$job\"}) /  count(count(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}) by (cpu)) * 100",
+          "expr": "avg(node_load5{instance=\"$node\",job=\"$job\"}) /  count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)) * 100",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1453,8 +1677,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1474,7 +1697,7 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 14
+        "y": 21
       },
       "id": 19,
       "links": [],
@@ -1497,7 +1720,7 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "avg(node_load15{tagname=\"$node\",job=\"$job\"}) /  count(count(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}) by (cpu)) * 100",
+          "expr": "avg(node_load15{instance=\"$node\",job=\"$job\"}) /  count(count(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}) by (cpu)) * 100",
           "hide": false,
           "intervalFactor": 1,
           "refId": "A",
@@ -1526,8 +1749,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1547,7 +1769,7 @@
         "h": 4,
         "w": 3,
         "x": 9,
-        "y": 14
+        "y": 21
       },
       "hideTimeOverride": false,
       "id": 16,
@@ -1572,7 +1794,7 @@
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
           "editorMode": "code",
-          "expr": "((node_memory_MemTotal_bytes{tagname=\"$node\"} - node_memory_MemFree_bytes{tagname=\"$node\"}) / (node_memory_MemTotal_bytes{tagname=\"$node\"} )) * 100",
+          "expr": "((node_memory_MemTotal_bytes{instance=\"$node\"} - node_memory_MemFree_bytes{instance=\"$node\"}) / (node_memory_MemTotal_bytes{instance=\"$node\"} )) * 100",
           "format": "time_series",
           "hide": true,
           "intervalFactor": 1,
@@ -1585,7 +1807,7 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "100 - ((node_memory_MemAvailable_bytes{tagname=\"$node\",job=\"$job\"} * 100) / node_memory_MemTotal_bytes{tagname=\"$node\",job=\"$job\"})",
+          "expr": "100 - ((node_memory_MemAvailable_bytes{instance=\"$node\",job=\"$job\"} * 100) / node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"})",
           "format": "time_series",
           "hide": false,
           "intervalFactor": 1,
@@ -1624,8 +1846,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1645,7 +1866,7 @@
         "h": 4,
         "w": 3,
         "x": 12,
-        "y": 14
+        "y": 21
       },
       "id": 21,
       "links": [],
@@ -1668,7 +1889,7 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "((node_memory_SwapTotal_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{tagname=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{tagname=\"$node\",job=\"$job\"} )) * 100",
+          "expr": "((node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"}) / (node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} )) * 100",
           "intervalFactor": 1,
           "refId": "A",
           "step": 240
@@ -1705,8 +1926,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "rgba(50, 172, 45, 0.97)",
-                "value": null
+                "color": "rgba(50, 172, 45, 0.97)"
               },
               {
                 "color": "rgba(237, 129, 40, 0.89)",
@@ -1726,7 +1946,7 @@
         "h": 4,
         "w": 3,
         "x": 15,
-        "y": 14
+        "y": 21
       },
       "id": 154,
       "links": [],
@@ -1749,7 +1969,7 @@
             "type": "prometheus",
             "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
           },
-          "expr": "100 - ((node_filesystem_avail_bytes{tagname=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{tagname=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"})",
+          "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",mountpoint=\"/\",fstype!=\"rootfs\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A",
@@ -1769,7 +1989,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 25
       },
       "id": 263,
       "panels": [
@@ -1943,7 +2163,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 28
+            "y": 26
           },
           "id": 77,
           "links": [],
@@ -1968,7 +2188,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1983,7 +2203,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -1998,7 +2218,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Busy Iowait",
@@ -2012,7 +2232,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=~\".*irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=~\".*irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Busy IRQs",
@@ -2026,7 +2246,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq'}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode!='idle',mode!='user',mode!='system',mode!='iowait',mode!='irq',mode!='softirq'}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Busy Other",
@@ -2040,7 +2260,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Idle",
@@ -2484,7 +2704,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 28
+            "y": 26
           },
           "id": 78,
           "links": [],
@@ -2508,7 +2728,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_MemTotal_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -2521,7 +2741,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_MemTotal_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{tagname=\"$node\",job=\"$job\"} - (node_memory_Cached_bytes{tagname=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{tagname=\"$node\",job=\"$job\"} + node_memory_SReclaimable_bytes{tagname=\"$node\",job=\"$job\"})",
+              "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"} - (node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"} + node_memory_SReclaimable_bytes{instance=\"$node\",job=\"$job\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -2534,7 +2754,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Cached_bytes{tagname=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{tagname=\"$node\",job=\"$job\"} + node_memory_SReclaimable_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} + node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"} + node_memory_SReclaimable_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "RAM Cache + Buffer",
@@ -2546,7 +2766,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_MemFree_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "RAM Free",
@@ -2558,7 +2778,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "(node_memory_SwapTotal_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{tagname=\"$node\",job=\"$job\"})",
+              "expr": "(node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SWAP Used",
@@ -2990,7 +3210,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 35
+            "y": 33
           },
           "id": 74,
           "links": [],
@@ -3013,7 +3233,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_bytes_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])*8",
+              "expr": "irate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "recv {{device}}",
@@ -3025,7 +3245,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_bytes_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])*8",
+              "expr": "irate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "trans {{device}} ",
@@ -3101,7 +3321,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 35
+            "y": 33
           },
           "id": 152,
           "links": [],
@@ -3124,7 +3344,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "100 - ((node_filesystem_avail_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'} * 100) / node_filesystem_size_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'})",
+              "expr": "100 - ((node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'} * 100) / node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'})",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{mountpoint}}",
@@ -3158,7 +3378,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 26
       },
       "id": 265,
       "panels": [
@@ -3347,7 +3567,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 51
+            "y": 27
           },
           "id": 3,
           "links": [],
@@ -3377,7 +3597,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -3392,7 +3612,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "User - Normal processes executing in user mode",
@@ -3406,7 +3626,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"nice\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"nice\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Nice - Niced processes executing in user mode",
@@ -3420,7 +3640,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"iowait\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Iowait - Waiting for I/O to complete",
@@ -3434,7 +3654,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"irq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Irq - Servicing interrupts",
@@ -3448,7 +3668,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"softirq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"softirq\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Softirq - Servicing softirqs",
@@ -3462,7 +3682,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"steal\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"steal\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Steal - Time spent in other operating systems when running in a virtualized environment",
@@ -3476,7 +3696,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])))",
+              "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\", mode=\"idle\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])))",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3854,7 +4074,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 51
+            "y": 27
           },
           "id": 24,
           "links": [],
@@ -3883,7 +4103,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_MemTotal_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_Buffers_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_Cached_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_Slab_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_PageTables_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_SwapCached_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_MemTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"} - node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"} - node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"} - node_memory_Slab_bytes{instance=\"$node\",job=\"$job\"} - node_memory_PageTables_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapCached_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3896,7 +4116,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_PageTables_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_PageTables_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3909,7 +4129,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_SwapCached_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_SwapCached_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SwapCache - Memory that keeps track of pages that have been fetched from swap but not yet been modified",
@@ -3921,7 +4141,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Slab_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Slab_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3934,7 +4154,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Cached_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Cached_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3947,7 +4167,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Buffers_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Buffers_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3960,7 +4180,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_MemFree_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_MemFree_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3973,7 +4193,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "(node_memory_SwapTotal_bytes{tagname=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{tagname=\"$node\",job=\"$job\"})",
+              "expr": "(node_memory_SwapTotal_bytes{instance=\"$node\",job=\"$job\"} - node_memory_SwapFree_bytes{instance=\"$node\",job=\"$job\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -3986,7 +4206,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_HardwareCorrupted_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_HardwareCorrupted_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -4133,7 +4353,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 63
+            "y": 39
           },
           "id": 84,
           "links": [],
@@ -4161,7 +4381,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_bytes_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])*8",
+              "expr": "irate(node_network_receive_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive",
@@ -4173,7 +4393,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_bytes_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])*8",
+              "expr": "irate(node_network_transmit_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])*8",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit",
@@ -4248,7 +4468,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 63
+            "y": 39
           },
           "id": 156,
           "links": [],
@@ -4276,7 +4496,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_size_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'} - node_filesystem_avail_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'} - node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{mountpoint}}",
@@ -4678,7 +4898,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 75
+            "y": 51
           },
           "id": 229,
           "links": [],
@@ -4706,7 +4926,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_reads_completed_total{tagname=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Reads completed",
               "refId": "A",
@@ -4717,7 +4937,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_writes_completed_total{tagname=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Writes completed",
               "refId": "B",
@@ -4905,7 +5125,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 75
+            "y": 51
           },
           "id": 42,
           "links": [],
@@ -4933,7 +5153,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_read_bytes_total{tagname=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -4946,7 +5166,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_written_bytes_total{tagname=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
+              "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5050,7 +5270,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 87
+            "y": 63
           },
           "id": 127,
           "links": [],
@@ -5078,7 +5298,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_io_time_seconds_total{tagname=\"$node\",job=\"$job\",device=~\"$diskdevices\"} [$__rate_interval])",
+              "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\",device=~\"$diskdevices\"} [$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5184,7 +5404,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 87
+            "y": 63
           },
           "id": 319,
           "options": {
@@ -5211,7 +5431,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"user\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[1m])))",
+              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{instance=\"$node\",job=\"$job\", mode=\"user\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[1m])))",
               "hide": false,
               "legendFormat": "Guest - Time spent running a virtual CPU for a guest operating system",
               "range": true,
@@ -5223,7 +5443,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{tagname=\"$node\",job=\"$job\", mode=\"nice\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[1m])))",
+              "expr": "sum by(instance) (irate(node_cpu_guest_seconds_total{instance=\"$node\",job=\"$job\", mode=\"nice\"}[1m])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[1m])))",
               "hide": false,
               "legendFormat": "GuestNice - Time spent running a niced guest  (virtual CPU for guest operating system)",
               "range": true,
@@ -5256,7 +5476,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 27
       },
       "id": 266,
       "panels": [
@@ -5579,7 +5799,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 70
+            "y": 42
           },
           "id": 136,
           "links": [],
@@ -5608,7 +5828,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Inactive_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Inactive_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Inactive - Memory which has been less recently used.  It is more eligible to be reclaimed for other purposes",
@@ -5620,7 +5840,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Active_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Active_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Active - Memory that has been used more recently and usually not reclaimed unless absolutely necessary",
@@ -5969,7 +6189,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 70
+            "y": 42
           },
           "id": 135,
           "links": [],
@@ -5998,7 +6218,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Committed_AS_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Committed_AS_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Committed_AS - Amount of memory presently allocated on the system",
@@ -6010,7 +6230,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_CommitLimit_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_CommitLimit_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "CommitLimit - Amount of  memory currently available to be allocated on the system",
@@ -6340,7 +6560,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 80
+            "y": 52
           },
           "id": 191,
           "links": [],
@@ -6369,7 +6589,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Inactive_file_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Inactive_file_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -6382,7 +6602,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Inactive_anon_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Inactive_anon_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -6395,7 +6615,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Active_file_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Active_file_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -6408,7 +6628,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Active_anon_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Active_anon_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -6769,7 +6989,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 80
+            "y": 52
           },
           "id": 130,
           "links": [],
@@ -6797,7 +7017,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Writeback_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Writeback_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Writeback - Memory which is actively being written back to disk",
@@ -6809,7 +7029,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_WritebackTmp_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_WritebackTmp_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "WritebackTmp - Memory used by FUSE for temporary writeback buffers",
@@ -6821,7 +7041,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Dirty_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Dirty_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Dirty - Memory which is waiting to get written back to the disk",
@@ -7175,7 +7395,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 90
+            "y": 62
           },
           "id": 138,
           "links": [],
@@ -7204,7 +7424,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Mapped_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Mapped_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Mapped - Used memory in mapped pages files which have been mapped, such as libraries",
@@ -7216,7 +7436,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Shmem_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Shmem_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Shmem - Used shared memory (shared between several processes, thus including RAM disks)",
@@ -7228,7 +7448,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_ShmemHugePages_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_ShmemHugePages_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -7241,7 +7461,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_ShmemPmdMapped_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_ShmemPmdMapped_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -7602,7 +7822,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 90
+            "y": 62
           },
           "id": 131,
           "links": [],
@@ -7630,7 +7850,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_SUnreclaim_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_SUnreclaim_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SUnreclaim - Part of Slab, that cannot be reclaimed on memory pressure",
@@ -7642,7 +7862,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_SReclaimable_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_SReclaimable_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "SReclaimable - Part of Slab, that might be reclaimed, such as caches",
@@ -7987,7 +8207,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 100
+            "y": 72
           },
           "id": 70,
           "links": [],
@@ -8015,7 +8235,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_VmallocChunk_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_VmallocChunk_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -8028,7 +8248,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_VmallocTotal_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_VmallocTotal_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -8041,7 +8261,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_VmallocUsed_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_VmallocUsed_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -8372,7 +8592,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 100
+            "y": 72
           },
           "id": 159,
           "links": [],
@@ -8401,7 +8621,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Bounce_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Bounce_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Bounce - Memory used for block device bounce buffers",
@@ -8758,7 +8978,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 110
+            "y": 82
           },
           "id": 129,
           "links": [],
@@ -8786,7 +9006,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_AnonHugePages_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_AnonHugePages_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "AnonHugePages - Memory in anonymous huge pages",
@@ -8798,7 +9018,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_AnonPages_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_AnonPages_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "AnonPages - Memory in user pages not backed by files",
@@ -9128,7 +9348,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 110
+            "y": 82
           },
           "id": 160,
           "links": [],
@@ -9157,7 +9377,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_KernelStack_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_KernelStack_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "KernelStack - Kernel memory stack. This is not reclaimable",
@@ -9169,7 +9389,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Percpu_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Percpu_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -9515,7 +9735,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 120
+            "y": 92
           },
           "id": 140,
           "links": [],
@@ -9542,7 +9762,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_HugePages_Free{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_HugePages_Free{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages_Free - Huge pages in the pool that are not yet allocated",
@@ -9554,7 +9774,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_HugePages_Rsvd{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_HugePages_Rsvd{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages_Rsvd - Huge pages for which a commitment to allocate from the pool has been made, but no allocation has yet been made",
@@ -9566,7 +9786,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_HugePages_Surp{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_HugePages_Surp{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages_Surp - Huge pages in the pool above the value in /proc/sys/vm/nr_hugepages",
@@ -9911,7 +10131,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 120
+            "y": 92
           },
           "id": 71,
           "links": [],
@@ -9938,7 +10158,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_HugePages_Total{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_HugePages_Total{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "HugePages - Total size of the pool of huge pages",
@@ -9950,7 +10170,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Hugepagesize_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Hugepagesize_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Hugepagesize - Huge Page size",
@@ -10295,7 +10515,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 130
+            "y": 102
           },
           "id": 128,
           "links": [],
@@ -10322,7 +10542,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_DirectMap1G_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_DirectMap1G_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "DirectMap1G - Amount of pages mapped as this size",
@@ -10334,7 +10554,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_DirectMap2M_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_DirectMap2M_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -10347,7 +10567,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_DirectMap4k_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_DirectMap4k_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -10678,7 +10898,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 130
+            "y": 102
           },
           "id": 137,
           "links": [],
@@ -10707,7 +10927,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Unevictable_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Unevictable_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Unevictable - Amount of unevictable memory that can't be swapped out for a variety of reasons",
@@ -10719,7 +10939,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_Mlocked_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_Mlocked_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "MLocked - Size of pages locked to memory using the mlock() system call",
@@ -11079,7 +11299,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 140
+            "y": 112
           },
           "id": 132,
           "links": [],
@@ -11107,7 +11327,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_memory_NFS_Unstable_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_memory_NFS_Unstable_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "NFS Unstable - Memory in NFS pages sent to the server, but not yet committed to the storage",
@@ -11141,7 +11361,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 28
       },
       "id": 267,
       "panels": [
@@ -11220,7 +11440,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 55
+            "y": 63
           },
           "id": 176,
           "links": [],
@@ -11248,7 +11468,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pgpgin{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgpgin{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pagesin - Page in operations",
@@ -11260,7 +11480,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pgpgout{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgpgout{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pagesout - Page out operations",
@@ -11346,7 +11566,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 55
+            "y": 63
           },
           "id": 22,
           "links": [],
@@ -11374,7 +11594,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pswpin{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pswpin{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pswpin - Pages swapped in",
@@ -11386,7 +11606,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pswpout{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pswpout{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pswpout - Pages swapped out",
@@ -11735,7 +11955,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 65
+            "y": 73
           },
           "id": 175,
           "links": [],
@@ -11764,7 +11984,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pgfault{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pgfault - Page major and minor fault operations",
@@ -11776,7 +11996,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pgmajfault{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pgmajfault - Major page fault operations",
@@ -11788,7 +12008,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_pgfault{tagname=\"$node\",job=\"$job\"}[$__rate_interval])  - irate(node_vmstat_pgmajfault{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_pgfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])  - irate(node_vmstat_pgmajfault{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Pgminfault - Minor page fault operations",
@@ -12148,7 +12368,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 65
+            "y": 73
           },
           "id": 307,
           "links": [],
@@ -12176,7 +12396,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_vmstat_oom_kill{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_vmstat_oom_kill{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12211,7 +12431,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 29
       },
       "id": 293,
       "panels": [
@@ -12294,7 +12514,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 72
+            "y": 80
           },
           "id": 260,
           "links": [],
@@ -12322,7 +12542,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_estimated_error_seconds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_estimated_error_seconds{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -12336,7 +12556,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_offset_seconds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_offset_seconds{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -12350,7 +12570,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_maxerror_seconds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_maxerror_seconds{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -12426,7 +12646,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 72
+            "y": 80
           },
           "id": 291,
           "links": [],
@@ -12454,7 +12674,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_loop_time_constant{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_loop_time_constant{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12545,7 +12765,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 82
+            "y": 90
           },
           "id": 168,
           "links": [],
@@ -12573,7 +12793,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_sync_status{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_sync_status{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12586,7 +12806,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_frequency_adjustment_ratio{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_frequency_adjustment_ratio{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12661,7 +12881,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 82
+            "y": 90
           },
           "id": 294,
           "links": [],
@@ -12689,7 +12909,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_tick_seconds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_tick_seconds{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12702,7 +12922,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_timex_tai_offset_seconds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_timex_tai_offset_seconds{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -12737,7 +12957,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 30
       },
       "id": 312,
       "panels": [
@@ -12804,7 +13024,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 59
+            "y": 67
           },
           "id": 62,
           "links": [],
@@ -12832,7 +13052,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_procs_blocked{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_procs_blocked{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Processes blocked waiting for I/O to complete",
@@ -12844,7 +13064,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_procs_running{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_procs_running{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Processes in runnable state",
@@ -12918,7 +13138,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 59
+            "y": 67
           },
           "id": 315,
           "links": [],
@@ -12946,7 +13166,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_processes_state{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_processes_state{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13021,7 +13241,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 69
+            "y": 77
           },
           "id": 148,
           "links": [],
@@ -13049,7 +13269,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_forks_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_forks_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13137,7 +13357,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 69
+            "y": 77
           },
           "id": 149,
           "links": [],
@@ -13165,7 +13385,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(process_virtual_memory_bytes{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(process_virtual_memory_bytes{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -13178,7 +13398,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "process_resident_memory_max_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "process_resident_memory_max_bytes{instance=\"$node\",job=\"$job\"}",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -13191,7 +13411,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(process_virtual_memory_bytes{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(process_virtual_memory_bytes{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -13204,7 +13424,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(process_virtual_memory_max_bytes{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(process_virtual_memory_max_bytes{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -13299,7 +13519,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 79
+            "y": 87
           },
           "id": 313,
           "links": [],
@@ -13327,7 +13547,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_processes_pids{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_processes_pids{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13340,7 +13560,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_processes_max_processes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_processes_max_processes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13427,7 +13647,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 79
+            "y": 87
           },
           "id": 305,
           "links": [],
@@ -13455,7 +13675,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_schedstat_running_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_schedstat_running_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13468,7 +13688,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_schedstat_waiting_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_schedstat_waiting_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13563,7 +13783,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 89
+            "y": 97
           },
           "id": 314,
           "links": [],
@@ -13591,7 +13811,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_processes_threads{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_processes_threads{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13604,7 +13824,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_processes_max_threads{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_processes_max_threads{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -13639,7 +13859,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 31
       },
       "id": 269,
       "panels": [
@@ -13706,7 +13926,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 74
+            "y": 82
           },
           "id": 8,
           "links": [],
@@ -13734,7 +13954,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_context_switches_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_context_switches_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Context switches",
@@ -13746,7 +13966,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_intr_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_intr_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -13821,7 +14041,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 74
+            "y": 82
           },
           "id": 7,
           "links": [],
@@ -13849,7 +14069,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_load1{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_load1{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Load 1m",
@@ -13861,7 +14081,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_load5{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_load5{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Load 5m",
@@ -13873,7 +14093,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_load15{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_load15{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Load 15m",
@@ -13986,7 +14206,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 84
+            "y": 92
           },
           "id": 259,
           "links": [],
@@ -14014,7 +14234,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_interrupts_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_interrupts_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14088,7 +14308,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 84
+            "y": 92
           },
           "id": 306,
           "links": [],
@@ -14116,7 +14336,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_schedstat_timeslices_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_schedstat_timeslices_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14191,7 +14411,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 94
+            "y": 102
           },
           "id": 151,
           "links": [],
@@ -14219,7 +14439,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_entropy_available_bits{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_entropy_available_bits{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Entropy available to random number generators",
@@ -14292,7 +14512,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 94
+            "y": 102
           },
           "id": 308,
           "links": [],
@@ -14320,7 +14540,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(process_cpu_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(process_cpu_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14415,7 +14635,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 104
+            "y": 112
           },
           "id": 64,
           "links": [],
@@ -14443,7 +14663,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "process_max_fds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "process_max_fds{instance=\"$node\",job=\"$job\"}",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Maximum open file descriptors",
@@ -14455,7 +14675,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "process_open_fds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "process_open_fds{instance=\"$node\",job=\"$job\"}",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Open file descriptors",
@@ -14489,7 +14709,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 32
       },
       "id": 304,
       "panels": [
@@ -14595,7 +14815,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 75
+            "y": 83
           },
           "id": 158,
           "links": [],
@@ -14623,7 +14843,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_hwmon_temp_celsius{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_hwmon_temp_celsius{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14636,7 +14856,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_hwmon_temp_crit_alarm_celsius{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_hwmon_temp_crit_alarm_celsius{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -14650,7 +14870,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_hwmon_temp_crit_celsius{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_hwmon_temp_crit_celsius{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14663,7 +14883,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_hwmon_temp_crit_hyst_celsius{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_hwmon_temp_crit_hyst_celsius{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -14677,7 +14897,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_hwmon_temp_max_celsius{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_hwmon_temp_max_celsius{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -14772,7 +14992,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 75
+            "y": 83
           },
           "id": 300,
           "links": [],
@@ -14800,7 +15020,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_cooling_device_cur_state{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_cooling_device_cur_state{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -14814,7 +15034,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_cooling_device_max_state{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_cooling_device_max_state{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -14888,7 +15108,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 85
+            "y": 93
           },
           "id": 302,
           "links": [],
@@ -14916,7 +15136,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_power_supply_online{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_power_supply_online{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -14952,7 +15172,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 33
       },
       "id": 296,
       "panels": [
@@ -15019,7 +15239,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 58
+            "y": 34
           },
           "id": 297,
           "links": [],
@@ -15047,7 +15267,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_systemd_socket_accepted_connections_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_systemd_socket_accepted_connections_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -15197,7 +15417,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 58
+            "y": 34
           },
           "id": 298,
           "links": [],
@@ -15211,7 +15431,9 @@
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Min",
+              "sortDesc": true
             },
             "tooltip": {
               "mode": "multi",
@@ -15225,11 +15447,14 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_systemd_units{tagname=\"$node\",job=\"$job\",state=\"activating\"}",
+              "editorMode": "code",
+              "expr": "node_systemd_units{instance=\"$node\",job=\"$job\",exported_state=\"activating\"}",
               "format": "time_series",
+              "hide": false,
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Activating",
+              "range": true,
               "refId": "A",
               "step": 240
             },
@@ -15238,11 +15463,13 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_systemd_units{tagname=\"$node\",job=\"$job\",state=\"active\"}",
+              "editorMode": "code",
+              "expr": "node_systemd_units{instance=\"$node\",job=\"$job\",exported_state=\"active\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Active",
+              "range": true,
               "refId": "B",
               "step": 240
             },
@@ -15251,11 +15478,13 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_systemd_units{tagname=\"$node\",job=\"$job\",state=\"deactivating\"}",
+              "editorMode": "code",
+              "expr": "node_systemd_units{instance=\"$node\",job=\"$job\",exported_state=\"deactivating\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Deactivating",
+              "range": true,
               "refId": "C",
               "step": 240
             },
@@ -15264,11 +15493,13 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_systemd_units{tagname=\"$node\",job=\"$job\",state=\"failed\"}",
+              "editorMode": "code",
+              "expr": "node_systemd_units{instance=\"$node\",job=\"$job\",exported_state=\"failed\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Failed",
+              "range": true,
               "refId": "D",
               "step": 240
             },
@@ -15277,16 +15508,19 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_systemd_units{tagname=\"$node\",job=\"$job\",state=\"inactive\"}",
+              "editorMode": "code",
+              "expr": "node_systemd_units{instance=\"$node\",job=\"$job\",exported_state=\"inactive\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "Inactive",
+              "range": true,
               "refId": "E",
               "step": 240
             }
           ],
           "title": "Systemd Units State",
+          "transformations": [],
           "type": "timeseries"
         }
       ],
@@ -15312,7 +15546,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 34
       },
       "id": 270,
       "panels": [
@@ -15692,7 +15926,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 63
+            "y": 71
           },
           "id": 9,
           "links": [],
@@ -15720,7 +15954,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_reads_completed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Reads completed",
               "refId": "A",
@@ -15731,7 +15965,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_writes_completed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Writes completed",
               "refId": "B",
@@ -16117,7 +16351,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 63
+            "y": 71
           },
           "id": 33,
           "links": [],
@@ -16145,7 +16379,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_read_bytes_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_read_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Read bytes",
@@ -16157,7 +16391,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_written_bytes_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_written_bytes_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Written bytes",
@@ -16544,7 +16778,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 73
+            "y": 81
           },
           "id": 37,
           "links": [],
@@ -16572,7 +16806,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_read_time_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_reads_completed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_read_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_reads_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 4,
@@ -16585,7 +16819,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_write_time_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_writes_completed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_write_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval]) / irate(node_disk_writes_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "hide": false,
               "interval": "",
               "intervalFactor": 1,
@@ -16962,7 +17196,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 73
+            "y": 81
           },
           "id": 35,
           "links": [],
@@ -16990,7 +17224,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_io_time_weighted_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_io_time_weighted_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}}",
@@ -17377,7 +17611,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 83
+            "y": 91
           },
           "id": 133,
           "links": [],
@@ -17405,7 +17639,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_reads_merged_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_reads_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Read merged",
               "refId": "A",
@@ -17416,7 +17650,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_writes_merged_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_writes_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Write merged",
               "refId": "B",
@@ -17791,7 +18025,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 83
+            "y": 91
           },
           "id": 36,
           "links": [],
@@ -17819,7 +18053,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_io_time_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_io_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - IO",
@@ -17831,7 +18065,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_discard_time_seconds_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_discard_time_seconds_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - discard",
@@ -18207,7 +18441,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 93
+            "y": 101
           },
           "id": 34,
           "links": [],
@@ -18235,7 +18469,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_disk_io_now{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_disk_io_now{instance=\"$node\",job=\"$job\"}",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - IO now",
@@ -18610,7 +18844,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 93
+            "y": 101
           },
           "id": 301,
           "links": [],
@@ -18638,7 +18872,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_discards_completed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_discards_completed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 4,
               "legendFormat": "{{device}} - Discards completed",
@@ -18650,7 +18884,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_disk_discards_merged_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_disk_discards_merged_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Discards merged",
@@ -18684,7 +18918,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 35
       },
       "id": 271,
       "panels": [
@@ -18752,7 +18986,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 78
+            "y": 86
           },
           "id": 43,
           "links": [],
@@ -18780,7 +19014,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_avail_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_avail_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -18794,7 +19028,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_free_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_free_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "hide": true,
               "intervalFactor": 1,
@@ -18807,7 +19041,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_size_bytes{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_size_bytes{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "hide": true,
               "intervalFactor": 1,
@@ -18883,7 +19117,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 78
+            "y": 86
           },
           "id": 41,
           "links": [],
@@ -18911,7 +19145,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_files_free{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_files_free{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -18987,7 +19221,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 88
+            "y": 96
           },
           "id": 28,
           "links": [],
@@ -19015,7 +19249,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filefd_maximum{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_filefd_maximum{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 4,
               "legendFormat": "Max open files",
@@ -19027,7 +19261,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filefd_allocated{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_filefd_allocated{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "Open files",
@@ -19102,7 +19336,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 88
+            "y": 96
           },
           "id": 219,
           "links": [],
@@ -19130,7 +19364,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_files{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_files{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -19223,7 +19457,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 98
+            "y": 106
           },
           "id": 44,
           "links": [],
@@ -19251,7 +19485,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_readonly{tagname=\"$node\",job=\"$job\",device!~'rootfs'}",
+              "expr": "node_filesystem_readonly{instance=\"$node\",job=\"$job\",device!~'rootfs'}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{mountpoint}} - ReadOnly",
@@ -19263,7 +19497,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_filesystem_device_error{tagname=\"$node\",job=\"$job\",device!~'rootfs',fstype!~'tmpfs'}",
+              "expr": "node_filesystem_device_error{instance=\"$node\",job=\"$job\",device!~'rootfs',fstype!~'tmpfs'}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -19298,7 +19532,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 36
       },
       "id": 272,
       "panels": [
@@ -19437,7 +19671,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 63
+            "y": 71
           },
           "id": 60,
           "links": [],
@@ -19466,7 +19700,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_packets_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_packets_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -19479,7 +19713,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_packets_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_packets_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -19566,7 +19800,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 63
+            "y": 71
           },
           "id": 142,
           "links": [],
@@ -19595,7 +19829,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_errs_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_errs_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive errors",
@@ -19607,7 +19841,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_errs_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_errs_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Rransmit errors",
@@ -19693,7 +19927,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 73
+            "y": 81
           },
           "id": 143,
           "links": [],
@@ -19722,7 +19956,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_drop_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_drop_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive drop",
@@ -19734,7 +19968,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_drop_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_drop_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit drop",
@@ -19820,7 +20054,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 73
+            "y": 81
           },
           "id": 141,
           "links": [],
@@ -19849,7 +20083,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_compressed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_compressed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive compressed",
@@ -19861,7 +20095,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_compressed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_compressed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit compressed",
@@ -19947,7 +20181,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 83
+            "y": 91
           },
           "id": 146,
           "links": [],
@@ -19976,7 +20210,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_multicast_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_multicast_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive multicast",
@@ -20062,7 +20296,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 83
+            "y": 91
           },
           "id": 144,
           "links": [],
@@ -20091,7 +20325,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_fifo_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_fifo_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Receive fifo",
@@ -20103,7 +20337,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_fifo_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_fifo_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit fifo",
@@ -20189,7 +20423,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 93
+            "y": 101
           },
           "id": 145,
           "links": [],
@@ -20218,7 +20452,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_receive_frame_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_receive_frame_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -20292,7 +20526,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 93
+            "y": 101
           },
           "id": 231,
           "links": [],
@@ -20321,7 +20555,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_carrier_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_carrier_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Statistic transmit_carrier",
@@ -20407,7 +20641,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 103
+            "y": 111
           },
           "id": 232,
           "links": [],
@@ -20436,7 +20670,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_network_transmit_colls_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_network_transmit_colls_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{device}} - Transmit colls",
@@ -20530,7 +20764,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 103
+            "y": 111
           },
           "id": 61,
           "links": [],
@@ -20558,7 +20792,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_nf_conntrack_entries{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_nf_conntrack_entries{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "NF conntrack entries",
@@ -20570,7 +20804,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_nf_conntrack_entries_limit{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_nf_conntrack_entries_limit{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "NF conntrack limit",
@@ -20644,7 +20878,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 113
+            "y": 121
           },
           "id": 230,
           "links": [],
@@ -20672,7 +20906,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_arp_entries{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_arp_entries{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} - ARP entries",
@@ -20747,7 +20981,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 113
+            "y": 121
           },
           "id": 288,
           "links": [],
@@ -20775,7 +21009,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_network_mtu_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_network_mtu_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} - Bytes",
@@ -20850,7 +21084,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 123
+            "y": 131
           },
           "id": 280,
           "links": [],
@@ -20878,7 +21112,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_network_speed_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_network_speed_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} - Speed",
@@ -20953,7 +21187,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 123
+            "y": 131
           },
           "id": 289,
           "links": [],
@@ -20981,7 +21215,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_network_transmit_queue_length{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_network_transmit_queue_length{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{ device }} -   Interface transmit queue length",
@@ -21067,7 +21301,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 133
+            "y": 141
           },
           "id": 290,
           "links": [],
@@ -21096,7 +21330,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_softnet_processed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_softnet_processed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21109,7 +21343,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_softnet_dropped_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_softnet_dropped_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21183,7 +21417,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 133
+            "y": 141
           },
           "id": 310,
           "links": [],
@@ -21212,7 +21446,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_softnet_times_squeezed_total{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_softnet_times_squeezed_total{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21286,7 +21520,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 143
+            "y": 151
           },
           "id": 309,
           "links": [],
@@ -21315,7 +21549,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_network_up{operstate=\"up\",tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_network_up{operstate=\"up\",instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "{{interface}} - Operational state UP",
@@ -21327,7 +21561,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_network_carrier{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_network_carrier{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "{{device}} - Physical link state",
@@ -21360,7 +21594,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 37
       },
       "id": 273,
       "panels": [
@@ -21427,7 +21661,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 64
+            "y": 72
           },
           "id": 63,
           "links": [],
@@ -21456,7 +21690,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_TCP_alloc{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_TCP_alloc{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21469,7 +21703,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_TCP_inuse{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_TCP_inuse{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21482,7 +21716,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_TCP_mem{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_TCP_mem{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -21496,7 +21730,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_TCP_orphan{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_TCP_orphan{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21509,7 +21743,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_TCP_tw{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_TCP_tw{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21584,7 +21818,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 64
+            "y": 72
           },
           "id": 124,
           "links": [],
@@ -21613,7 +21847,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_UDPLITE_inuse{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_UDPLITE_inuse{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21626,7 +21860,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_UDP_inuse{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_UDP_inuse{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21639,7 +21873,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_UDP_mem{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_UDP_mem{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21714,7 +21948,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 74
+            "y": 82
           },
           "id": 125,
           "links": [],
@@ -21743,7 +21977,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_FRAG_inuse{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_FRAG_inuse{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21756,7 +21990,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_RAW_inuse{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_RAW_inuse{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21831,7 +22065,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 74
+            "y": 82
           },
           "id": 220,
           "links": [],
@@ -21860,7 +22094,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_TCP_mem_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_TCP_mem_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21873,7 +22107,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_UDP_mem_bytes{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_UDP_mem_bytes{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -21886,7 +22120,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_FRAG_memory{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_FRAG_memory{instance=\"$node\",job=\"$job\"}",
               "interval": "",
               "intervalFactor": 1,
               "legendFormat": "FRAG_memory - Used memory for frag",
@@ -21959,7 +22193,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 84
+            "y": 92
           },
           "id": 126,
           "links": [],
@@ -21988,7 +22222,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_sockstat_sockets_used{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_sockstat_sockets_used{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22023,7 +22257,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 38
       },
       "id": 274,
       "panels": [
@@ -22102,7 +22336,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 65
+            "y": 73
           },
           "id": 221,
           "links": [],
@@ -22131,7 +22365,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_IpExt_InOctets{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_IpExt_InOctets{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22144,7 +22378,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_IpExt_OutOctets{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_IpExt_OutOctets{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "OutOctets - Sent octets",
@@ -22218,7 +22452,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 65
+            "y": 73
           },
           "id": 81,
           "links": [],
@@ -22247,7 +22481,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Ip_Forwarding{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Ip_Forwarding{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22334,7 +22568,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 75
+            "y": 83
           },
           "id": 115,
           "links": [],
@@ -22362,7 +22596,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Icmp_InMsgs{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Icmp_InMsgs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22375,7 +22609,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Icmp_OutMsgs{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Icmp_OutMsgs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22462,7 +22696,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 75
+            "y": 83
           },
           "id": 50,
           "links": [],
@@ -22490,7 +22724,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Icmp_InErrors{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Icmp_InErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22589,7 +22823,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 85
+            "y": 93
           },
           "id": 55,
           "links": [],
@@ -22617,7 +22851,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Udp_InDatagrams{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_InDatagrams{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22630,7 +22864,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Udp_OutDatagrams{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_OutDatagrams{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22704,7 +22938,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 85
+            "y": 93
           },
           "id": 109,
           "links": [],
@@ -22732,7 +22966,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Udp_InErrors{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_InErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22745,7 +22979,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Udp_NoPorts{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_NoPorts{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22758,7 +22992,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_UdpLite_InErrors{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_UdpLite_InErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "InErrors Lite - UDPLite Datagrams that could not be delivered to an application",
               "refId": "C"
@@ -22768,7 +23002,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Udp_RcvbufErrors{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_RcvbufErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22781,7 +23015,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Udp_SndbufErrors{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Udp_SndbufErrors{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22880,7 +23114,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 95
+            "y": 103
           },
           "id": 299,
           "links": [],
@@ -22908,7 +23142,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_InSegs{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_InSegs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "instant": false,
               "interval": "",
@@ -22922,7 +23156,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_OutSegs{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_OutSegs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -22998,7 +23232,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 95
+            "y": 103
           },
           "id": 104,
           "links": [],
@@ -23026,7 +23260,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_TcpExt_ListenOverflows{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_ListenOverflows{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23040,7 +23274,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_TcpExt_ListenDrops{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_ListenDrops{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23054,7 +23288,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_TcpExt_TCPSynRetrans{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_TCPSynRetrans{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23067,7 +23301,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_RetransSegs{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_RetransSegs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "RetransSegs - Segments retransmitted - that is, the number of TCP segments transmitted containing one or more previously transmitted octets",
               "refId": "D"
@@ -23077,7 +23311,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_InErrs{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_InErrs{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "InErrs - Segments received in error (e.g., bad TCP checksums)",
               "refId": "E"
@@ -23087,7 +23321,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_OutRsts{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_OutRsts{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "interval": "",
               "legendFormat": "OutRsts - Segments sent with RST flag",
               "refId": "F"
@@ -23179,7 +23413,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 105
+            "y": 113
           },
           "id": 85,
           "links": [],
@@ -23207,7 +23441,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_netstat_Tcp_CurrEstab{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_netstat_Tcp_CurrEstab{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23221,7 +23455,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_netstat_Tcp_MaxConn{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_netstat_Tcp_MaxConn{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23310,7 +23544,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 105
+            "y": 113
           },
           "id": 91,
           "links": [],
@@ -23338,7 +23572,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_TcpExt_SyncookiesFailed{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_SyncookiesFailed{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23352,7 +23586,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_TcpExt_SyncookiesRecv{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_SyncookiesRecv{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23366,7 +23600,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_TcpExt_SyncookiesSent{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_TcpExt_SyncookiesSent{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23442,7 +23676,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 115
+            "y": 123
           },
           "id": 82,
           "links": [],
@@ -23470,7 +23704,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_ActiveOpens{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_ActiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23483,7 +23717,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "irate(node_netstat_Tcp_PassiveOpens{tagname=\"$node\",job=\"$job\"}[$__rate_interval])",
+              "expr": "irate(node_netstat_Tcp_PassiveOpens{instance=\"$node\",job=\"$job\"}[$__rate_interval])",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23555,7 +23789,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 115
+            "y": 123
           },
           "id": 320,
           "links": [],
@@ -23584,7 +23818,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"established\",tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_tcp_connection_states{state=\"established\",instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -23599,7 +23833,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"fin_wait2\",tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_tcp_connection_states{state=\"fin_wait2\",instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23615,7 +23849,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"listen\",tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_tcp_connection_states{state=\"listen\",instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23631,7 +23865,7 @@
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
               "editorMode": "code",
-              "expr": "node_tcp_connection_states{state=\"time_wait\",tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_tcp_connection_states{state=\"time_wait\",instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23668,7 +23902,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 39
       },
       "id": 279,
       "panels": [
@@ -23735,7 +23969,7 @@
             "h": 10,
             "w": 12,
             "x": 0,
-            "y": 66
+            "y": 74
           },
           "id": 40,
           "links": [],
@@ -23763,7 +23997,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_scrape_collector_duration_seconds{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_scrape_collector_duration_seconds{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23862,7 +24096,7 @@
             "h": 10,
             "w": 12,
             "x": 12,
-            "y": 66
+            "y": 74
           },
           "id": 157,
           "links": [],
@@ -23890,7 +24124,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_scrape_collector_success{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_scrape_collector_success{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23904,7 +24138,7 @@
                 "type": "prometheus",
                 "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
               },
-              "expr": "node_textfile_scrape_error{tagname=\"$node\",job=\"$job\"}",
+              "expr": "node_textfile_scrape_error{instance=\"$node\",job=\"$job\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -23973,14 +24207,14 @@
       {
         "current": {
           "selected": false,
-          "text": "Digivarsity-DB",
-          "value": "Digivarsity-DB"
+          "text": "10.0.4.218",
+          "value": "10.0.4.218"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
         },
-        "definition": "label_values(node_uname_info{job=\"$job\"},tagname)",
+        "definition": "label_values(node_uname_info{job=\"$job\"},instance)",
         "hide": 0,
         "includeAll": false,
         "label": "Node",
@@ -23988,7 +24222,7 @@
         "name": "node",
         "options": [],
         "query": {
-          "query": "label_values(node_uname_info{job=\"$job\"},tagname)",
+          "query": "label_values(node_uname_info{job=\"$job\"},instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -24088,11 +24322,69 @@
         "refresh": 2,
         "skipUrlSync": false,
         "type": "interval"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "IIBF-Exam-NFS",
+          "value": "IIBF-Exam-NFS"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
+        },
+        "definition": "label_values(node_uname_info{instance=\"$node\"},tagname)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "TagName",
+        "multi": false,
+        "name": "tagname",
+        "options": [],
+        "query": {
+          "query": "label_values(node_uname_info{instance=\"$node\"},tagname)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "f7c06f17-d19a-41e8-8465-90f3046e9322"
+        },
+        "definition": "query_result(count(node_uname_info{job=~\"$job\"}))",
+        "hide": 0,
+        "includeAll": false,
+        "label": "total_servers",
+        "multi": false,
+        "name": "total",
+        "options": [],
+        "query": {
+          "query": "query_result(count(node_uname_info{job=~\"$job\"}))",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "/{} (.*) .*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -24123,6 +24415,6 @@
   "timezone": "browser",
   "title": "Node Exporter Full",
   "uid": "rYdddlPWk",
-  "version": 48,
+  "version": 76,
   "weekStart": ""
 }

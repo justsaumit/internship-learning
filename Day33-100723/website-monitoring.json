@@ -522,6 +522,51 @@
                 }
               }
             ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "404"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "401"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "503"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
           }
         ]
       },
@@ -607,8 +652,8 @@
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "green",
+                "value": 90
               }
             ]
           }
@@ -926,7 +971,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Success status instance"
+              "options": "Success status instance(200)"
             },
             "properties": [
               {
@@ -941,7 +986,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Failed status instance"
+              "options": "Failed status instance(Blank or 404)"
             },
             "properties": [
               {
@@ -956,7 +1001,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "API unsuccessful access but working instance"
+              "options": "API access attempt failed, but the instance is working properly (401,405,415)"
             },
             "properties": [
               {
@@ -1014,7 +1059,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "Success status instance",
+          "legendFormat": "Success status instance(200)",
           "range": false,
           "refId": "A"
         },
@@ -1025,10 +1070,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(probe_success{job=~\"$job\"} == 0 and (probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} == 405 or probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} == 415)\n)",
+          "expr": "count(probe_success{job=~\"$job\"} == 0 and (probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} == 405 or probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} == 415 or probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} == 401)\n)",
           "hide": false,
           "instant": true,
-          "legendFormat": "API unsuccessful access but working instance",
+          "legendFormat": "API access attempt failed, but the instance is working properly (401,405,415)",
           "range": false,
           "refId": "B"
         },
@@ -1039,10 +1084,10 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "count(probe_success{job=~\"$job\"} == 0 and (probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} != 405 and probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} != 415)\n)",
+          "expr": "count(probe_success{job=~\"$job\"} == 0 and (probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} != 405 and probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} != 415 and probe_http_status_code{job=~\"$job\", instance=~\"$instance\"} != 401)\n)",
           "hide": false,
           "instant": true,
-          "legendFormat": "Failed status instance",
+          "legendFormat": "Failed status instance(Blank or 404)",
           "range": false,
           "refId": "C"
         }
@@ -1243,8 +1288,7 @@
                 ]
               },
               {
-                "id": "custom.width",
-                "value": 91
+                "id": "custom.width"
               }
             ]
           },
@@ -1908,7 +1952,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "#d44a3a"
+                    "color": "#d44a3a",
+                    "value": null
                   },
                   {
                     "color": "rgba(237, 129, 40, 0.89)",
@@ -1928,7 +1973,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 26
           },
           "id": 219,
           "links": [],
@@ -1981,7 +2026,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "orange",
@@ -2001,7 +2047,7 @@
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 59
+            "y": 28
           },
           "id": 8,
           "links": [],
@@ -2047,7 +2093,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2063,7 +2110,7 @@
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 59
+            "y": 28
           },
           "id": 9,
           "links": [],
@@ -2112,7 +2159,7 @@
             "h": 8,
             "w": 18,
             "x": 6,
-            "y": 59
+            "y": 28
           },
           "hiddenSeries": false,
           "id": 17,
@@ -2224,7 +2271,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "#d44a3a"
+                    "color": "#d44a3a",
+                    "value": null
                   },
                   {
                     "color": "rgba(237, 129, 40, 0.89)",
@@ -2244,7 +2292,7 @@
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 62
+            "y": 31
           },
           "id": 220,
           "links": [],
@@ -2303,7 +2351,7 @@
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 62
+            "y": 31
           },
           "id": 11,
           "links": [],
@@ -2370,7 +2418,7 @@
             "h": 3,
             "w": 3,
             "x": 0,
-            "y": 65
+            "y": 34
           },
           "id": 12,
           "links": [],
@@ -2425,7 +2473,7 @@
             "h": 3,
             "w": 3,
             "x": 3,
-            "y": 65
+            "y": 34
           },
           "id": 13,
           "links": [],
@@ -2474,7 +2522,7 @@
             "h": 8,
             "w": 18,
             "x": 6,
-            "y": 67
+            "y": 36
           },
           "hiddenSeries": false,
           "id": 18,
@@ -2562,7 +2610,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "red"
+                    "color": "red",
+                    "value": null
                   },
                   {
                     "color": "green",
@@ -2578,7 +2627,7 @@
             "h": 3,
             "w": 6,
             "x": 0,
-            "y": 68
+            "y": 37
           },
           "id": 14,
           "links": [],
@@ -2633,7 +2682,7 @@
             "h": 4,
             "w": 3,
             "x": 0,
-            "y": 71
+            "y": 40
           },
           "id": 15,
           "links": [],
@@ -2687,7 +2736,7 @@
             "h": 4,
             "w": 3,
             "x": 3,
-            "y": 71
+            "y": 40
           },
           "id": 16,
           "links": [],
@@ -2739,7 +2788,7 @@
       "type": "row"
     }
   ],
-  "refresh": "30s",
+  "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
   "tags": [],
@@ -2765,9 +2814,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -2795,9 +2848,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "prometheus",
@@ -2949,6 +3006,6 @@
   "timezone": "ist",
   "title": "Website-monitoring",
   "uid": "blackbox",
-  "version": 75,
+  "version": 82,
   "weekStart": ""
 }
